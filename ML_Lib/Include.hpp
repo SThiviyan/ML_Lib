@@ -8,7 +8,6 @@
 #ifndef ML_Lib_hpp
 #define ML_Lib_hpp
 
-#include <iostream>
 #include "FFNeuralNetwork/Headers/FFNN.hpp"
 #include "ConvNeuralNetwork/Headers/ConvNN.hpp"
 
