@@ -6,8 +6,31 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C5A52CD926A8A55500C6661E /* Include.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C5A52CD726A8A55500C6661E /* Include.hpp */; };
+		C5A52CDC26A99A2800C6661E /* ActivationFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A52CDB26A99A2800C6661E /* ActivationFunctions.h */; };
+		C5A52CE126AAE52300C6661E /* FFNN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A52CDF26AAE52300C6661E /* FFNN.cpp */; };
+		C5A52CE226AAE52300C6661E /* FFNN.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C5A52CE026AAE52300C6661E /* FFNN.hpp */; };
+		C5A52CE526AAE53100C6661E /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A52CE326AAE53100C6661E /* Layer.cpp */; };
+		C5A52CE626AAE53100C6661E /* Layer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C5A52CE426AAE53100C6661E /* Layer.hpp */; };
+		C5A52CE926AAE55D00C6661E /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A52CE726AAE55D00C6661E /* Matrix.cpp */; };
+		C5A52CEA26AAE55D00C6661E /* Matrix.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C5A52CE826AAE55D00C6661E /* Matrix.hpp */; };
+		C5A52CF126AAF20100C6661E /* ConvNN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A52CEF26AAF20100C6661E /* ConvNN.cpp */; };
+		C5A52CF226AAF20100C6661E /* ConvNN.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C5A52CF026AAF20100C6661E /* ConvNN.hpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C5A52CCB26A8A49900C6661E /* libML_Lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libML_Lib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5A52CD726A8A55500C6661E /* Include.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Include.hpp; sourceTree = "<group>"; };
+		C5A52CDB26A99A2800C6661E /* ActivationFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivationFunctions.h; sourceTree = "<group>"; };
+		C5A52CDF26AAE52300C6661E /* FFNN.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FFNN.cpp; sourceTree = "<group>"; };
+		C5A52CE026AAE52300C6661E /* FFNN.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFNN.hpp; sourceTree = "<group>"; };
+		C5A52CE326AAE53100C6661E /* Layer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
+		C5A52CE426AAE53100C6661E /* Layer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
+		C5A52CE726AAE55D00C6661E /* Matrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
+		C5A52CE826AAE55D00C6661E /* Matrix.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
+		C5A52CEF26AAF20100C6661E /* ConvNN.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConvNN.cpp; sourceTree = "<group>"; };
+		C5A52CF026AAF20100C6661E /* ConvNN.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConvNN.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -24,6 +47,7 @@
 		C5A52CC226A8A49900C6661E = {
 			isa = PBXGroup;
 			children = (
+				C5A52CD226A8A4D100C6661E /* ML_Lib */,
 				C5A52CCC26A8A49900C6661E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -36,6 +60,95 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C5A52CD226A8A4D100C6661E /* ML_Lib */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CD526A8A4F900C6661E /* ConvNeuralNetwork */,
+				C5A52CD426A8A4E400C6661E /* FFNeuralNetwork */,
+				C5A52CD326A8A4DD00C6661E /* SharedDep */,
+				C5A52CD726A8A55500C6661E /* Include.hpp */,
+			);
+			path = ML_Lib;
+			sourceTree = "<group>";
+		};
+		C5A52CD326A8A4DD00C6661E /* SharedDep */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CEC26AAE56F00C6661E /* Matrix */,
+				C5A52CEB26AAE56000C6661E /* ActivationFunctions */,
+			);
+			path = SharedDep;
+			sourceTree = "<group>";
+		};
+		C5A52CD426A8A4E400C6661E /* FFNeuralNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CDD26AAE4FF00C6661E /* Headers */,
+				C5A52CDE26AAE50400C6661E /* Sources */,
+			);
+			path = FFNeuralNetwork;
+			sourceTree = "<group>";
+		};
+		C5A52CD526A8A4F900C6661E /* ConvNeuralNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CED26AAF18700C6661E /* Headers */,
+				C5A52CEE26AAF18C00C6661E /* Sources */,
+			);
+			path = ConvNeuralNetwork;
+			sourceTree = "<group>";
+		};
+		C5A52CDD26AAE4FF00C6661E /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CE026AAE52300C6661E /* FFNN.hpp */,
+				C5A52CE426AAE53100C6661E /* Layer.hpp */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		C5A52CDE26AAE50400C6661E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CDF26AAE52300C6661E /* FFNN.cpp */,
+				C5A52CE326AAE53100C6661E /* Layer.cpp */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		C5A52CEB26AAE56000C6661E /* ActivationFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CDB26A99A2800C6661E /* ActivationFunctions.h */,
+			);
+			path = ActivationFunctions;
+			sourceTree = "<group>";
+		};
+		C5A52CEC26AAE56F00C6661E /* Matrix */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CE726AAE55D00C6661E /* Matrix.cpp */,
+				C5A52CE826AAE55D00C6661E /* Matrix.hpp */,
+			);
+			path = Matrix;
+			sourceTree = "<group>";
+		};
+		C5A52CED26AAF18700C6661E /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CF026AAF20100C6661E /* ConvNN.hpp */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		C5A52CEE26AAF18C00C6661E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C5A52CEF26AAF20100C6661E /* ConvNN.cpp */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -43,6 +156,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A52CE626AAE53100C6661E /* Layer.hpp in Headers */,
+				C5A52CDC26A99A2800C6661E /* ActivationFunctions.h in Headers */,
+				C5A52CF226AAF20100C6661E /* ConvNN.hpp in Headers */,
+				C5A52CE226AAE52300C6661E /* FFNN.hpp in Headers */,
+				C5A52CD926A8A55500C6661E /* Include.hpp in Headers */,
+				C5A52CEA26AAE55D00C6661E /* Matrix.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +221,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A52CE926AAE55D00C6661E /* Matrix.cpp in Sources */,
+				C5A52CF126AAF20100C6661E /* ConvNN.cpp in Sources */,
+				C5A52CE526AAE53100C6661E /* Layer.cpp in Sources */,
+				C5A52CE126AAE52300C6661E /* FFNN.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
