@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include "FFNeuralNetwork/Headers/FFNN.hpp"
+#include "ConvNeuralNetwork/Headers/ConvNN.hpp"
 
 
 
