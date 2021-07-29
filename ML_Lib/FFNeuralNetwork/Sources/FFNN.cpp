@@ -7,7 +7,6 @@
 
 #include "FFNN.hpp"
 
-
 ML_Lib::FFNN::FFNN(std::vector<int> topology, ActivationFunction Ac, float LearningRate)
 {
     this->topology = topology;
@@ -106,7 +105,7 @@ void ML_Lib::FFNN::TestNetwork(std::vector<float> Testingset, std::vector<float>
 
 std::vector<float> ML_Lib::FFNN::RunNetwork(std::vector<float> InputSet)
 {
-    Matrix Inputs = Matrix(InputSet.size(), 1);
+    Matrix Inputs = Matrix(int(InputSet.size()), 1);
     
     for (int n = 0; n < Inputs.getRows(); n++) {
         Inputs(n, 0) = InputSet[n];

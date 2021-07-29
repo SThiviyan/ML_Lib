@@ -6,7 +6,7 @@
 //
 
 #include "Matrix.hpp"
-#include "ActivationFunctions.h"
+#include "ActivationFunctions.hpp"
 #include <stdio.h>
 #include <time.h>
 #include <math.h>

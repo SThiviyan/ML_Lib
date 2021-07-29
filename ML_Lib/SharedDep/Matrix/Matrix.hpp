@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <vector>
-#include "ActivationFunctions.h"
+#include "SharedDep/ActivationFunctions.hpp"
 
 namespace ML_Lib
 {

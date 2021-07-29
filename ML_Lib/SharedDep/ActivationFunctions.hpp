@@ -5,8 +5,8 @@
 //  Created by Thiviyan Saravanamuthu on 22.07.21.
 //
 
-#ifndef ActivationFunctions_h
-#define ActivationFunctions_h
+#ifndef ActivationFunctions_hpp
+#define ActivationFunctions_hpp
 
 #include <iostream>
 
@@ -21,7 +21,6 @@ namespace ML_Lib {
         TANH,
         D_TANH
     };
-
 
 }
 

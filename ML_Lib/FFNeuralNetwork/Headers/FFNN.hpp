@@ -10,7 +10,6 @@
 
 #include <iostream>
 #include <vector>
-#include "ActivationFunctions.h"
 #include "Layer.hpp"
 
 namespace ML_Lib
