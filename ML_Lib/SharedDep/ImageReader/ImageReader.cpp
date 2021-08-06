@@ -7,6 +7,12 @@
 
 #include "ImageReader.hpp"
 #include <fstream>
+#include <unistd.h>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "extern/stb_image.h"
+
+
 
 int flipint (int i)
 {
@@ -20,25 +26,45 @@ int flipint (int i)
     return((int)ch1<<24)+((int)ch2<<16)+((int)ch3<<8)+ch4;
 }
 
-std::vector<ML_Lib::Matrix> ML_Lib::ImageReader::png_to_matrix(std::string imagepath, bool IncludeAllChannels)
+void ML_Lib::ImageReader::png_to_matrix(std::vector<Matrix> &ImageMatrices, std::string imagepath, int imagewidth, int imageheight, colorchannels channels)
 {
-    std::vector<Matrix> Matrices;
- 
+    ImageMatrices.clear();
+    int numchannels = 4;
+    int outputtedchannels = 3;
+    unsigned char *image = stbi_load(imagepath.c_str(), &imagewidth, &imageheight, &numchannels, outputtedchannels);
     
     
+    for (int channel = 1; channel <= outputtedchannels; channel++) {
+        Matrix FinalMatrix(imageheight, imagewidth);
+        for (int n = 0; n < imageheight; n++) {
+            for (int j = 0; j < imagewidth; j++) {
+                FinalMatrix(n, j) = int(image[n * j * channel]);
+            }
+        }
+        ImageMatrices.push_back(FinalMatrix);
+    }
     
     
-    return Matrices;
+    delete image;
 }
 
 
 void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::string labelpath, std::vector<std::vector<float>> &ImageVectors, std::vector<float> &LabelVectors)
 {
-    std::fstream images;
-    std::fstream labels;
+    if(access(imagepath.c_str(), W_OK) != 0)
+    {
+        throw std::runtime_error("ImagePath not accessible");
+    }
     
-    images.open(imagepath, std::ios::binary);
-    labels.open(labelpath, std::ios::binary);
+    
+    if(access(labelpath.c_str(), W_OK) != 0)
+    {
+        throw std::runtime_error("LabelPath not accessible");
+    }
+    
+    std::ifstream images(imagepath.c_str(), std::ios::binary);
+    std::ifstream labels(labelpath.c_str(), std::ios::binary);
+    
     
     if(images.is_open())
     {
@@ -49,6 +75,13 @@ void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::strin
         
         images.read((char*)&magicnum, sizeof(magicnum));
         magicnum = flipint(magicnum);
+         
+        if(magicnum != 2051)
+        {
+           throw std::runtime_error("Not a MNIST Image file!");
+        }
+        
+        
         
         images.read((char*)&numofimages, sizeof(numofimages));
         numofimages = flipint(numofimages);
@@ -59,47 +92,51 @@ void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::strin
         images.read((char*)&piccols, sizeof(piccols));
         piccols = flipint(piccols);
         
-        for (int n = 0; n < numofimages; n++)
+        ImageVectors.resize(numofimages, std::vector<float>());
+        
+        for (size_t n = 0; n < numofimages; n++)
         {
-            for (int j = 0; j < picrows; j++)
+            for (size_t j = 0; j < picrows; j++)
             {
                 
-                ImageVectors.push_back(std::vector<float>());
+                //ImageVectors.push_back(std::vector<float>());
                 
                 for (int m = 0; m < piccols; m++)
                 {
+                    
                     char temp = 0;
                     images.read((char*)&temp, sizeof(temp));
-                    ImageVectors[j].push_back(temp);
+                    temp = flipint(temp);
+                    ImageVectors[n].push_back(temp);
                 }
-                
             }
         }
         
     }
     
+    images.close();
+
+    
     if(labels.is_open())
     {
-        int magicnum = 0;
-        int numoflabels = 0;
+        unsigned int magicnum = 0;
+        unsigned int numoflabels = 0;
         
-        images.read((char*)&magicnum, sizeof(magicnum));
+        labels.read((char*)&magicnum, sizeof(magicnum));
         magicnum = flipint(magicnum);
         
-        images.read((char*)&numoflabels, sizeof(numoflabels));
+        
+        labels.read((char*)&numoflabels, sizeof(numoflabels));
         numoflabels = flipint(numoflabels);
         
-        for (int n = 0; n < numoflabels; n++) {
+        for (unsigned int n = 0; n < numoflabels; n++) {
             char num = 0;
-            images.read((char*)&num, sizeof(num));
+            labels.read((char*)&num, sizeof(num));
             LabelVectors.push_back(num);
         }
         
     }
     
-    
-    
-    images.close();
     labels.close();
 }
  
