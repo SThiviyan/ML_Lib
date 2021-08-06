@@ -27,7 +27,7 @@ namespace ML_Lib
         //MARK: Different kinds of excectution for the Network
         
         //Training, Test; Input is all the numbers(separated by layernum)
-        void TrainNetwork(std::vector<float> Trainingsset, std::vector<float> Targets);
+        void TrainNetwork(std::vector<float> Trainingsset, std::vector<float> Targets, size_t iterations);
         void TestNetwork(std::vector<float> Testingset, std::vector<float> Targets);
         
         //Just To run without any backpropagation
@@ -53,13 +53,10 @@ namespace ML_Lib
         float LearningRate;
         ActivationFunction Ac;
         
- 
-        
     };
 
 
 }
-
 
 
 

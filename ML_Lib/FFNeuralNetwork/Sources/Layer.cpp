@@ -29,6 +29,12 @@ ML_Lib::Layer::Layer(int NeuronNum, int topologyNextElement, Layer* PreviousLaye
     
 }
 
+ML_Lib::Layer::~Layer()
+{
+    
+}
+
+
 void ML_Lib::Layer::OverrideValMatrix(Matrix *InputValMatrix)
 {
  

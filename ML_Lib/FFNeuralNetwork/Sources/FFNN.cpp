@@ -40,7 +40,7 @@ ML_Lib::FFNN::~FFNN()
 
 
 
-void ML_Lib::FFNN::TrainNetwork(std::vector<float> Trainingsset, std::vector<float> Targets)
+void ML_Lib::FFNN::TrainNetwork(std::vector<float> Trainingsset, std::vector<float> Targets, size_t Iterations)
 {
     if(Targets.size() % topology[LayerNum - 1] == 0 && Trainingsset.size() % topology[0] == 0)
     {
@@ -54,9 +54,9 @@ void ML_Lib::FFNN::TrainNetwork(std::vector<float> Trainingsset, std::vector<flo
         
       
         //MARK: TRAINING PROCESS (1000 = NumIterations)
-        for(int j = 0; j < 100000; j++)
+        for(int j = 0; j < Iterations; j++)
         {
-          std::cout << "Iteration " << j << std::endl;
+            std::cout << "Iteration: " << j << std::endl;
             
           //Going through Batches
           for(int n = 1; n <= this->NumBatch; n++)
@@ -82,6 +82,7 @@ void ML_Lib::FFNN::TrainNetwork(std::vector<float> Trainingsset, std::vector<flo
               Layers[0].OverrideValMatrix(&InputMatrix);
               feedforward();
               backpropagate(CurrentTargets);
+              PrintAll();
               
           }
           std::cout << std::endl << std::endl << std::endl << std::endl;
@@ -139,7 +140,7 @@ void ML_Lib::FFNN::feedforward()
 
 void ML_Lib::FFNN::backpropagate(std::vector<float> CurrentTargets)
 {
-    std::cout << "Cost:" << CalculateCost(CurrentTargets) << " |  Current Input: (" << Layers[0].GetValMatrix()(0, 0) <<  "|" << Layers[0].GetValMatrix()(1, 0) << ")" <<  " | Current Output:" << Layers[LayerNum - 1].GetValMatrix()(0, 0) << std::endl;
+    std::cout << "Cost:" << CalculateCost(CurrentTargets) << std::endl;
 
     
     //Setting Indeces

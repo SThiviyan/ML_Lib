@@ -20,6 +20,7 @@ namespace ML_Lib
     {
     public:
         Layer(int NeuronNum, int topologyNextElement, Layer* PreviousLayer);
+        ~Layer();
         
         //Feedforwards layer
         void feedforwardValues(ActivationFunction Ac);
