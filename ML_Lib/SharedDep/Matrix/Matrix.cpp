@@ -267,25 +267,15 @@ float ML_Lib::Matrix::D_Sigmoid(float x)
 float ML_Lib::Matrix::Relu(float x)
 {
     if(x > 0.f)
-    {
         return x;
-    }
-    else
-    {
-        return 0.f;
-    }
+    return 0.01 * x;
 }
 
 float ML_Lib::Matrix::D_Relu(float x)
 {
-    if(x < 0.0f)
-    {
-        return 0.f;
-    }
-    else
-    {
+    if(x > 0.f)
         return 1.f;
-    }
+    return 0.5f;
 }
 
 
@@ -302,4 +292,12 @@ float ML_Lib::Matrix::dtanh(float x)
 
 
 
-
+void ML_Lib::Matrix::PrintMatrix()
+{
+    for (int n = 0; n < rows; n++) {
+        for (int j = 0; j < cols; j++) {
+            std::cout << Vals[n][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}

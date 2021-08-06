@@ -214,6 +214,8 @@ namespace ML_Lib
         int getCols(){return this->cols;};
         int getRows(){return this->rows;};
     
+        
+        void PrintMatrix();
     
     private:
     
