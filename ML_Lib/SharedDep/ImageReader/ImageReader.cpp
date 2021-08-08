@@ -49,7 +49,7 @@ void ML_Lib::ImageReader::png_to_matrix(std::vector<Matrix> &ImageMatrices, std:
 }
 
 
-void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::string labelpath, std::vector<std::vector<float>> &ImageVectors, std::vector<float> &LabelVectors)
+void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::string labelpath, std::vector<std::vector<float>> &ImageVectors, std::vector<float> &LabelVectors, bool normalizeVals)
 {
     if(access(imagepath.c_str(), W_OK) != 0)
     {
@@ -61,6 +61,9 @@ void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::strin
     {
         throw std::runtime_error("LabelPath not accessible");
     }
+    
+    ImageVectors.clear();
+    LabelVectors.clear();
     
     std::ifstream images(imagepath.c_str(), std::ios::binary);
     std::ifstream labels(labelpath.c_str(), std::ios::binary);
@@ -106,8 +109,15 @@ void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::strin
                     
                     char temp = 0;
                     images.read((char*)&temp, sizeof(temp));
-                    temp = flipint(temp);
-                    ImageVectors[n].push_back(temp);
+                    //temp = flipint(temp);
+                    
+                    float num = (float)temp;
+                    
+                    if(normalizeVals)
+                        num = num / 255;
+                    
+                    
+                    ImageVectors[n].push_back(num);
                 }
             }
         }
@@ -119,8 +129,8 @@ void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::strin
     
     if(labels.is_open())
     {
-        unsigned int magicnum = 0;
-        unsigned int numoflabels = 0;
+        int magicnum = 0;
+        int numoflabels = 0;
         
         labels.read((char*)&magicnum, sizeof(magicnum));
         magicnum = flipint(magicnum);
@@ -130,9 +140,9 @@ void ML_Lib::ImageReader::return_mnist_dataset(std::string imagepath, std::strin
         numoflabels = flipint(numoflabels);
         
         for (unsigned int n = 0; n < numoflabels; n++) {
-            char num = 0;
-            labels.read((char*)&num, sizeof(num));
-            LabelVectors.push_back(num);
+            char temp = 0;
+            labels.read((char*)&temp, sizeof(temp));
+            LabelVectors.push_back((float)temp);
         }
         
     }

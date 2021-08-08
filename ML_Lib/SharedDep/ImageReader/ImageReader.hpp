@@ -29,7 +29,7 @@ namespace ML_Lib {
         static void png_to_matrix(std::vector<Matrix> &ImageMatrices,std::string imagepath, int imagewidth, int imageheight, colorchannels channels);
         std::vector<Matrix> svg_to_matrix(std::string imagepath, bool IncludeAllChannels);
         std::vector<Matrix> jpeg_to_matrix(std::string imagepath, bool IncludeAllChannels);
-        static void return_mnist_dataset(std::string imagepath, std::string labelpath, std::vector<std::vector<float>> &Images, std::vector<float> &Labels);
+        static void return_mnist_dataset(std::string imagepath, std::string labelpath, std::vector<std::vector<float>> &Images, std::vector<float> &Labels, bool normalizeVals);
         
     };
 
