@@ -7,7 +7,7 @@
 
 #include "FFNN.hpp"
 
-ML_Lib::FFNN::FFNN(std::vector<int> topology, ActivationFunction Ac, float LearningRate)
+ML_Lib::FFNN::FFNN(std::vector<int> &topology, ActivationFunction Ac, float LearningRate)
 {
     this->topology = topology;
     this->LayerNum = int(topology.size());
@@ -40,7 +40,7 @@ ML_Lib::FFNN::~FFNN()
 
 
 
-void ML_Lib::FFNN::TrainNetwork(std::vector<float> Trainingsset, std::vector<float> Targets, size_t Iterations)
+void ML_Lib::FFNN::TrainNetwork(std::vector<float> &Trainingsset, std::vector<float> &Targets, size_t Iterations)
 {
     if(Targets.size() % topology[LayerNum - 1] == 0 && Trainingsset.size() % topology[0] == 0)
     {
@@ -79,7 +79,7 @@ void ML_Lib::FFNN::TrainNetwork(std::vector<float> Trainingsset, std::vector<flo
             
               
               //Training and Backprop process
-              Layers[0].OverrideValMatrix(&InputMatrix);
+              Layers[0].OverrideValMatrix(InputMatrix);
               feedforward();
               backpropagate(CurrentTargets);
               PrintAll();
@@ -98,13 +98,13 @@ void ML_Lib::FFNN::TrainNetwork(std::vector<float> Trainingsset, std::vector<flo
     }
 }
 
-void ML_Lib::FFNN::TestNetwork(std::vector<float> Testingset, std::vector<float> Targets)
+void ML_Lib::FFNN::TestNetwork(std::vector<float> &Testingset, std::vector<float> &Targets)
 {
    
     
 }
 
-std::vector<float> ML_Lib::FFNN::RunNetwork(std::vector<float> InputSet)
+std::vector<float> ML_Lib::FFNN::RunNetwork(std::vector<float> &InputSet)
 {
     Matrix Inputs = Matrix(int(InputSet.size()), 1);
     
@@ -112,7 +112,7 @@ std::vector<float> ML_Lib::FFNN::RunNetwork(std::vector<float> InputSet)
         Inputs(n, 0) = InputSet[n];
     }
     
-    Layers[0].OverrideValMatrix(&Inputs);
+    Layers[0].OverrideValMatrix(Inputs);
     
     feedforward();
     
@@ -138,7 +138,7 @@ void ML_Lib::FFNN::feedforward()
     
 }
 
-void ML_Lib::FFNN::backpropagate(std::vector<float> CurrentTargets)
+void ML_Lib::FFNN::backpropagate(std::vector<float> &CurrentTargets)
 {
     std::cout << "Cost:" << CalculateCost(CurrentTargets) << std::endl;
 
@@ -181,7 +181,7 @@ void ML_Lib::FFNN::backpropagate(std::vector<float> CurrentTargets)
             Deltaweights.MultiplyByScalar(LearningRate);
 
            
-            Layers[n - 1].OverrideWeightMatrix(&Deltaweights);
+            Layers[n - 1].OverrideWeightMatrix(Deltaweights);
             
         }
         else
@@ -199,7 +199,7 @@ void ML_Lib::FFNN::backpropagate(std::vector<float> CurrentTargets)
             Matrix DeltaWeights = Gradient * PrevActivations;
             DeltaWeights.MultiplyByScalar(LearningRate);
             
-            Layers[n - 1].OverrideWeightMatrix(&DeltaWeights);
+            Layers[n - 1].OverrideWeightMatrix(DeltaWeights);
         }
         
         
@@ -209,7 +209,7 @@ void ML_Lib::FFNN::backpropagate(std::vector<float> CurrentTargets)
 }
 
 
-float ML_Lib::FFNN::CalculateCost(std::vector<float> CurrentTargets)
+float ML_Lib::FFNN::CalculateCost(std::vector<float> &CurrentTargets)
 {
     Matrix OutputMatrix = Layers[LayerNum - 1].GetValMatrix();
         

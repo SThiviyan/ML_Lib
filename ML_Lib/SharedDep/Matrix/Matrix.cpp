@@ -34,7 +34,7 @@ ML_Lib::Matrix::Matrix(int rows, int cols)
 }
 
 
-ML_Lib::Matrix::Matrix(std::vector<float> Array)
+ML_Lib::Matrix::Matrix(std::vector<float> &Array)
 {
     Vals.clear();
     
@@ -49,7 +49,7 @@ ML_Lib::Matrix::Matrix(std::vector<float> Array)
 }
 
 
-ML_Lib::Matrix::Matrix(std::vector<std::vector<float>> Array)
+ML_Lib::Matrix::Matrix(std::vector<std::vector<float>> &Array)
 {
     Vals.clear();
     
@@ -141,6 +141,22 @@ void ML_Lib::Matrix::RandomWeightInit()
     }
    
 }
+
+
+void ML_Lib::Matrix::RandonWeightInitwithRange(int start, int end)
+{
+    srand(int(time(NULL)));
+    
+    for (int n = 0; n < rows; n++) {
+        for (int j = 0; j < cols; j++) {
+           if(start < 0)
+           {
+            Vals[n][j] = float(rand() % end) - start;
+           }
+        }
+    }
+}
+
 
 
 ML_Lib::Matrix ML_Lib::Matrix::GetTransposedMatrix()

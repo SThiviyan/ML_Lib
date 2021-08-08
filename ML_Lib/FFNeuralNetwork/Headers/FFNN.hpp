@@ -20,24 +20,24 @@ namespace ML_Lib
     public:
         
         //MARK: Constructor/Destructor
-        FFNN(std::vector<int> topology, ActivationFunction Ac, float LearningRate);
+        FFNN(std::vector<int> &topology, ActivationFunction Ac, float LearningRate);
         ~FFNN();
         
         
         //MARK: Different kinds of excectution for the Network
         
         //Training, Test; Input is all the numbers(separated by layernum)
-        void TrainNetwork(std::vector<float> Trainingsset, std::vector<float> Targets, size_t iterations);
-        void TestNetwork(std::vector<float> Testingset, std::vector<float> Targets);
+        void TrainNetwork(std::vector<float> &Trainingsset, std::vector<float> &Targets, size_t iterations);
+        void TestNetwork(std::vector<float> &Testingset, std::vector<float> &Targets);
         
         //Just To run without any backpropagation
-        std::vector<float> RunNetwork(std::vector<float> InputSet);
+        std::vector<float> RunNetwork(std::vector<float> &InputSet);
         
         //MARK: The fundamental algorithms to run the network
         void feedforward();
-        void backpropagate(std::vector<float> CurrentTargets);
+        void backpropagate(std::vector<float> &CurrentTargets);
         
-        float CalculateCost(std::vector<float> CurrentTargets);
+        float CalculateCost(std::vector<float> &CurrentTargets);
         
         void PrintAll();
         

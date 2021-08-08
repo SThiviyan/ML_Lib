@@ -20,8 +20,8 @@ namespace ML_Lib
     
         //MARK: Constructor and Destructor
         Matrix(int rows, int cols);
-        Matrix(std::vector<float> Array);
-        Matrix(std::vector<std::vector<float>> Array);
+        Matrix(std::vector<float> &Array);
+        Matrix(std::vector<std::vector<float>> &Array);
         ~Matrix();
     
     
@@ -196,6 +196,7 @@ namespace ML_Lib
     
         //Random Weight Initalization
         void RandomWeightInit();
+        void RandonWeightInitwithRange(int start, int end);
     
     
         //Activations

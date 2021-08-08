@@ -35,12 +35,12 @@ ML_Lib::Layer::~Layer()
 }
 
 
-void ML_Lib::Layer::OverrideValMatrix(Matrix *InputValMatrix)
+void ML_Lib::Layer::OverrideValMatrix(Matrix &InputValMatrix)
 {
  
    for (int row = 0; row < ValMatrix->getRows(); row++) {
             for (int col = 0; col < ValMatrix->getCols(); col++) {
-                ValMatrix->operator()(row, col) = InputValMatrix->operator()(row, col);
+                ValMatrix->operator()(row, col) = InputValMatrix(row, col);
             }
             
     }
@@ -48,7 +48,7 @@ void ML_Lib::Layer::OverrideValMatrix(Matrix *InputValMatrix)
     
 }
 
-void ML_Lib::Layer::OverrideWeightMatrix(Matrix *NewWeights)
+void ML_Lib::Layer::OverrideWeightMatrix(Matrix &NewWeights)
 {
     Matrix OldWeights = *WeightMatrix;
     delete WeightMatrix;
@@ -56,7 +56,7 @@ void ML_Lib::Layer::OverrideWeightMatrix(Matrix *NewWeights)
     WeightMatrix = new Matrix(OldWeights.getRows(), OldWeights.getCols());
     for (int row = 0; row < WeightMatrix->getRows(); row++) {
              for (int col = 0; col < WeightMatrix->getCols(); col++) {
-                 WeightMatrix->operator()(row, col) = OldWeights(row, col) + NewWeights->operator()(row, col);
+                 WeightMatrix->operator()(row, col) = OldWeights(row, col) + NewWeights(row, col);
              }
              
      }
@@ -72,7 +72,7 @@ void ML_Lib::Layer::feedforwardValues(ActivationFunction Ac)
         Matrix NewValMatrix = WeightM * ValM;
         NewValMatrix.ActivateNeurons(Ac);
         
-        OverrideValMatrix(&NewValMatrix);
+        OverrideValMatrix(NewValMatrix);
         
     }
     

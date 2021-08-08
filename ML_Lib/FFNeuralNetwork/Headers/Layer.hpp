@@ -26,10 +26,10 @@ namespace ML_Lib
         void feedforwardValues(ActivationFunction Ac);
             
         //Override Val Matrix -> Only for Input and feedforward
-        void OverrideValMatrix(Matrix* InputValMatrix);
+        void OverrideValMatrix(Matrix &InputValMatrix);
         
         //Override Weight Matrix -> After Backprop
-        void OverrideWeightMatrix(Matrix* NewWeights);
+        void OverrideWeightMatrix(Matrix &NewWeights);
         
         //Get Val or Weight Matrix
         Matrix GetValMatrix();
