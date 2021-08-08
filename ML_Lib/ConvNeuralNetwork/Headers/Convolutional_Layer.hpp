@@ -17,12 +17,28 @@ namespace ML_Lib
     class Conv_Layer
     {
     public:
-        Conv_Layer();
+        //MARK: Initialization
+        Conv_Layer(Conv_Layer* PreviousLayer, std::vector<Matrix>* OptionalInput); //Constructor
+        void InitFilters(int NumImages); // Creates Filters for this Layer
+        void AddPadding(); // Increasing Image Size
         
+        
+        //MARK: Calculations
+        void feedforward(ActivationFunction Ac); //forward propagation function
+        Matrix CalculateSingleFeatureMap(Matrix &Filter, Matrix &ChannelImage); // Calculates One Feature Map. 1 filter on one Image
+        
+        
+        
+        //MARK: Get Functions
+        std::vector<Matrix> GetInputImages();
+        std::vector<Matrix> GetFilters();
+        std::vector<Matrix> GetOutputArray();
+     
         
     private:
-        std::vector<Matrix*> InputImages; //Input Images (3 matrices for 3 Color Channels RGB)
-        std::vector<Matrix*> Filters; // Filters for 3 Channels
+        std::vector<Matrix> &InputImages; //Input Images (3 matrices for 3 Color Channels RGB)
+        std::vector<Matrix> Filters; // Filters for 3 Channels
+        std::vector<Matrix> ActivationMaps; //OutputArray (Last Calculation of the Layer)
         int filterWidth, filterHeight; // Filter Size
         int Stride; // Movement of the Filter
         
