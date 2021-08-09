@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <vector>
-#include "Matrix.hpp"
+#include "SharedDep/Matrix/Matrix.hpp"
 
 namespace ML_Lib
 {
@@ -25,7 +25,7 @@ namespace ML_Lib
         
         //MARK: Calculations
         void feedforward(ActivationFunction Ac); //forward propagation function
-        Matrix CalculateSingleFeatureMap(Matrix &Filter, Matrix &ChannelImage); // Calculates One Feature Map. 1 filter on one Image
+        static Matrix CalculateSingleFeatureMap(Matrix &Filter, Matrix &ChannelImage, int Stride); // Calculates One Feature Map. 1 filter on one Image and pushes to ActivationMaps
         
         
         
