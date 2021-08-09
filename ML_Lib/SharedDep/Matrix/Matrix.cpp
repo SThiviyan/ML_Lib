@@ -317,3 +317,27 @@ void ML_Lib::Matrix::PrintMatrix()
         std::cout << std::endl;
     }
 }
+
+
+std::vector<std::vector<float>> ML_Lib::Matrix::ReturnTwoDimensionalVector(std::vector<float> &OneDimVector,int rows, int cols)
+{
+    std::vector<std::vector<float>> TwoDimVector;
+    
+    if(OneDimVector.size() == rows*cols)
+    {
+        std::vector<float> Temp;
+        for (int l = 1; l <= OneDimVector.size(); l++) {
+            Temp.push_back(OneDimVector[l - 1]);
+            
+            if(l % rows == 0)
+            {
+                TwoDimVector.push_back(Temp);
+                Temp.clear();
+            }
+            
+        }
+        
+    }
+    
+    return TwoDimVector;
+}

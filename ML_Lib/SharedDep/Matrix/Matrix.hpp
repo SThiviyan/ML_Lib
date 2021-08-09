@@ -23,8 +23,9 @@ namespace ML_Lib
         Matrix(std::vector<float> &Array);
         Matrix(std::vector<std::vector<float>> &Array);
         ~Matrix();
-    
-    
+        
+        static std::vector<std::vector<float>> ReturnTwoDimensionalVector(std::vector<float> &OneDimVector,int rows, int cols);
+ 
         //MARK: Acces to Elements / Mathematical stuff
     
         //Operators
