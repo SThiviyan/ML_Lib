@@ -10,7 +10,7 @@
 #include <unistd.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "extern/stb_image.h"
+#include "stb_image.h"
 
 
 

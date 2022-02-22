@@ -11,7 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "SharedDep/Matrix/Matrix.hpp"
+#include "Matrix.hpp"
 
 namespace ML_Lib {
     
