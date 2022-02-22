@@ -9,7 +9,7 @@
 #define ConvNN_hpp
 
 #include <iostream>
-#include "FFNeuralNetwork/Headers/FFNN.hpp"
+#include "FFNN.hpp"
 
 
 namespace ML_Lib

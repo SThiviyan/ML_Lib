@@ -22,7 +22,7 @@ void ML_Lib::Conv_Layer::InitFilters(int NumImages)
     filterWidth = 3;
     filterHeight = 3;
     
-    for (int n = 0; n < NumImages * 2; n++) {
+    for (int n = 0; n < NumImages; n++) {
         Filters.push_back(Matrix(filterHeight, filterWidth));
         Filters[n].RandonWeightInitwithRange(-10, 10);
     }
@@ -30,15 +30,22 @@ void ML_Lib::Conv_Layer::InitFilters(int NumImages)
 }
 
 
-void ML_Lib::Conv_Layer::feedforward(ML_Lib::ActivationFunction Ac)
+void ML_Lib::Conv_Layer::feedforward(ML_Lib::ActivationFunction Ac, int Stride)
 {
+    
+    this->Stride = Stride;
+    
+    std::cout << "FilterSize:" << Filters.size() << std::endl;
+    std::cout << "InputImageSize" << InputImages.size() << std::endl;
+
     int runs = int(Filters.size() / InputImages.size());
+    std::cout << "Runs:" << runs << std::endl << std::endl << std::endl;
     for (int run = 0; run < runs; run++)
     {
         for (int imageindex = 0; imageindex < InputImages.size(); imageindex++) {
             for (int filterindex = run * int(InputImages.size()); filterindex < (run + 1) * int(InputImages.size()); filterindex++) {
                 ActivationMaps.push_back(CalculateSingleFeatureMap(Filters[filterindex], InputImages[imageindex], this->Stride));
-                //ActivationMaps[imageindex].ActivateNeurons(Ac);
+                ActivationMaps[imageindex].ActivateNeurons(Ac);
             }
         }
         
@@ -57,6 +64,7 @@ ML_Lib::Matrix ML_Lib::Conv_Layer::CalculateSingleFeatureMap(ML_Lib::Matrix &Fil
     int FilterBiggestRowIndex  = Filter.getRows();
     int FilterBiggestColumnIndex = Filter.getCols();
     bool needtocalculate = true;
+    
     
     //Stores FeatureMap as vector and returns in the End as Matrix
     std::vector<std::vector<float>> FeatureMap;
@@ -88,21 +96,10 @@ ML_Lib::Matrix ML_Lib::Conv_Layer::CalculateSingleFeatureMap(ML_Lib::Matrix &Fil
         
         Temp.clear(); //Clears Object which isn't necessary
  
-        
-        //Looking if further Calculation is necessary
-        if(FilterBiggestRowIndex == ChannelImage.getRows() && FilterBiggestColumnIndex == ChannelImage.getCols())
-        {
-            //Changes the boolean to false to stop the While Loop
-            needtocalculate = false;
-            
-            //pushes the Last Value and Returns the full matrix
-            FeatureMap[FilterRowIndex].push_back(AddedValue);
-            return Matrix(FeatureMap);
-        }
-        
+   
         
         //Moves Horizontally if the BiggestColumn Index is Smaller than the Column number of the Image
-        if(FilterBiggestColumnIndex < ChannelImage.getCols())
+        if(FilterBiggestColumnIndex < (ChannelImage.getCols()))
         {
             //checks if its the first run and adds vectors to the vector of vectors
             if(FeatureMap.size() == 0)
@@ -118,7 +115,7 @@ ML_Lib::Matrix ML_Lib::Conv_Layer::CalculateSingleFeatureMap(ML_Lib::Matrix &Fil
             FilterBiggestColumnIndex +=  Stride;
         }
         //Checks if moving Horizontally is not an option anymore
-        else if(FilterBiggestColumnIndex == ChannelImage.getCols())
+        else if(FilterBiggestColumnIndex == (ChannelImage.getCols()) && FilterBiggestRowIndex < (ChannelImage.getRows()))
         {
             //pushes Value to FeatureMap
             FeatureMap[FilterRowIndex].push_back(AddedValue);
@@ -131,6 +128,18 @@ ML_Lib::Matrix ML_Lib::Conv_Layer::CalculateSingleFeatureMap(ML_Lib::Matrix &Fil
             
             //Pushes another Vector to move on row down
             FeatureMap.push_back(std::vector<float>());
+        }
+        
+        //Looking if further Calculation is necessary
+        else if(FilterBiggestRowIndex == (ChannelImage.getRows()) && FilterBiggestColumnIndex == (ChannelImage.getCols()))
+        {
+            //Changes the boolean to false to stop the While Loop
+            needtocalculate = false;
+            
+            //pushes the Last Value and Returns the full matrix
+            FeatureMap[FilterRowIndex].push_back(AddedValue);
+            
+            break;
         }
         
     }
