@@ -9,7 +9,7 @@
 #include "ActivationFunctions.hpp"
 #include <stdio.h>
 #include <time.h>
-#include <math.h>
+#include <cmath>
 
 
 //MARK: Constructor and Destructor
@@ -65,9 +65,16 @@ ML_Lib::Matrix::Matrix(std::vector<std::vector<float>> &Array)
     this->rows = int(Array.size());
 }
 
+ML_Lib::Matrix::Matrix()
+{
+    this->cols = 0;
+    this->rows = 0;
+}
+
 
 ML_Lib::Matrix::~Matrix()
 {
+    
 }
 
 
@@ -239,7 +246,7 @@ void ML_Lib::Matrix::ActivateNeurons(ActivationFunction AF)
             for(int row = 0; row < rows; row++)
             {
                 for (int col = 0; col < cols; col++) {
-                    Vals[row][col] = dtanh(Vals[row][col]);
+                    Vals[row][col] = dtanhf(Vals[row][col]);
                 }
             }
             
@@ -295,12 +302,12 @@ float ML_Lib::Matrix::D_Relu(float x)
 }
 
 
-float ML_Lib::Matrix::tanh(float x)
+float ML_Lib::Matrix::tanhf(float x)
 {
-    return tanhf(x);
+    return tanh(x);
 }
 
-float ML_Lib::Matrix::dtanh(float x)
+float ML_Lib::Matrix::dtanhf(float x)
 {
     return 1 - (x*x);
 }
@@ -340,4 +347,22 @@ std::vector<std::vector<float>> ML_Lib::Matrix::ReturnTwoDimensionalVector(std::
     }
     
     return TwoDimVector;
+}
+
+
+
+bool ML_Lib::Matrix::isEmpty()
+{
+    for(int n = 0; n < rows; n++)
+    {
+        for(int j = 0; j < cols; j++)
+        {
+            if(Vals[n][j] != 0)
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
 }

@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <vector>
-#include "SharedDep/ActivationFunctions.hpp"
+#include "ActivationFunctions.hpp"
 
 namespace ML_Lib
 {
@@ -22,6 +22,7 @@ namespace ML_Lib
         Matrix(int rows, int cols);
         Matrix(std::vector<float> &Array);
         Matrix(std::vector<std::vector<float>> &Array);
+        Matrix();
         ~Matrix();
         
         static std::vector<std::vector<float>> ReturnTwoDimensionalVector(std::vector<float> &OneDimVector,int rows, int cols);
@@ -42,6 +43,15 @@ namespace ML_Lib
                 return Vals[m][n];
             }
     
+        }
+        
+        bool operator == (Matrix M) //MARK: ONLY COMPARES DIMENSIONS NOT VALUES!!!
+        {
+            if(rows == M.getRows() && cols == M.getCols())
+            {
+                return true;
+            }
+            return false;
         }
     
         void operator = (Matrix M){
@@ -135,7 +145,7 @@ namespace ML_Lib
             }
             else
             {
-                std::cout << "Can't Add them together" << std::endl;
+                std::cout << "Can't Add them together " << rows << "x" << cols << " and " << SecondMatrix.rows << "x" << SecondMatrix.cols << std::endl;
             }
     
     
@@ -207,14 +217,18 @@ namespace ML_Lib
         float D_Sigmoid(float x);
         float Relu(float x);
         float D_Relu(float x);
-        float tanh(float x);
-        float dtanh(float x);
+        float tanhf(float x);
+        float dtanhf(float x);
     
     
         //MARK: GET functions
     
         int getCols(){return this->cols;};
         int getRows(){return this->rows;};
+        
+        
+        //Returns true if all values are 0
+        bool isEmpty();
     
         
         void PrintMatrix();
