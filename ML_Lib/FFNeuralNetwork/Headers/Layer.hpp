@@ -9,8 +9,8 @@
 #define Layer_hpp
 
 #include <iostream>
-#include "SharedDep/Matrix/Matrix.hpp"
-#include "SharedDep/ActivationFunctions.hpp"
+#include "Matrix.hpp"
+#include "ActivationFunctions.hpp"
 
 namespace ML_Lib
 {

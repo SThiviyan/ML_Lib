@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>ML_Lib_UseCases.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>C5A52CCA26A8A49900C6661E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5B5AB4D270E4C2200049C66</key>
 		<dict>
 			<key>primary</key>
 			<true/>
